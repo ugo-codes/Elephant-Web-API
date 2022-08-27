@@ -1,0 +1,45 @@
+{% extends 'bootstrap/base.html' %}
+
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Elephant Web API{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 class="display-4">Elephants Web Api 💻</h1>
+        <p class="lead">For the longuest of time, we lived in an unjust world. While cats and dogs had their respective
+            APIs, elephants did not. Not anymore!</p>
+        <hr class="my-4">
+        <p>You've found the right place! Search for elephants using their name and sex.</p>
+
+        <hr class="my-4">
+
+        <div class="form-div">
+        <form action="{{ url_for('home') }}" method="POST" novalidate="True">
+            {{ form.csrf_token }}
+            {{ form.search.label }} {{ form.search(class_="form-control") }}
+            <hr class="my-4">
+            {{ form.input(class_="form-control") }}
+            {% if form.input.errors %}
+            <ul class="errors">
+                {% for error in form.input.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <hr class="my-4">
+            {{ form.search_button(class_="btn btn-primary btn-lg") }}
+        </form>
+        </div>
+
+
+
+    </div>
+</div>
+{% endblock %}

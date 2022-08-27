@@ -1,0 +1,49 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}Search Result{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Result</h1>
+
+    <hr>
+
+    {% if results %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for result in results %}
+        <div class="col">
+            <div class="card">
+                <img src="{{ result['image'] }}" class="card-img-top" alt="Elephant Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ result['name'] }}</h5>
+                    <p class="card-text">{{ result['note'] }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Affiliation: {{ result['affiliation'] }}</li>
+                    <li class="list-group-item">Species: {{ result['species'] }}</li>
+                    <li class="list-group-item">Sex: {{ result['sex'] }}</li>
+                </ul>
+                <div class="card-footer">
+                    <a href="{{ result['wikilink'] }}" class="card-link">Wikilink</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+
+    {% if not results %}
+    <h3 class="errors">No result found</h3>
+    {% endif %}
+
+</div>
+
+{% endblock %}
